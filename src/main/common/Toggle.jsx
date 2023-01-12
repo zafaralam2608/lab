@@ -8,13 +8,13 @@ import { ColorModeContext } from '../constant/context';
 function Toggle() {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
-
+  const { toggleColorMode } = colorMode;
   const darkMode = (theme.palette.mode === 'dark');
 
   return (
     <Box>
       <FormControlLabel
-        control={<Switch checked={darkMode} onChange={colorMode.toggleColorMode} />}
+        control={<Switch checked={darkMode} onChange={toggleColorMode} />}
       />
       <IconButton
         sx={{ borderRadius: 0 }}

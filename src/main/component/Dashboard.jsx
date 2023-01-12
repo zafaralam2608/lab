@@ -1,19 +1,16 @@
 import React from 'react';
-import {
-  Box, FormControl, FormHelperText, Grid,
-} from '@mui/material';
-import { Typeahead } from 'react-bootstrap-typeahead';
+import { Box, Grid } from '@mui/material';
+import UserInput from './UserInput';
+import Filters from './Filters';
+import Results from './Results';
 
 function Dashboard() {
   return (
     <Box>
-      <Grid>
-        <FormControl>
-          <Typeahead
-            labelKey="Source"
-          />
-          <FormHelperText>From</FormHelperText>
-        </FormControl>
+      <UserInput />
+      <Grid container>
+        <Filters />
+        <Results />
       </Grid>
     </Box>
   );
