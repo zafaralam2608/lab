@@ -1,9 +1,12 @@
-export function evaluateFlightDetails(value) {
+import XMLParser from 'react-xml-parser';
+
+export function evaluateFlightDetails(xml) {
+  const json = new XMLParser().parseFromString(xml);
   let count = 0;
   let route = 0;
   const flights = [];
-  if (value.name === 'OTA_AirDetailsRS') {
-    value.children.forEach((child) => {
+  if (json.name === 'OTA_AirDetailsRS') {
+    json.children.forEach((child) => {
       const att = child.attributes;
       if (child.name === 'FLSResponseFields') {
         count = att.FLSResultCount;

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import XMLParser from 'react-xml-parser';
 import { evaluateFlightDetails } from '../constant/util';
 
 const ROOT_URL = 'https://timetable-lookup.p.rapidapi.com';
@@ -37,8 +36,7 @@ const timeTableSlice = createSlice({
     builder.addCase(retrieveTimeTable.fulfilled, (state, data) => {
       state.timeTableLoaded = true;
       const xml = data.payload;
-      const json = new XMLParser().parseFromString(xml);
-      const flights = evaluateFlightDetails(json);
+      const flights = evaluateFlightDetails(xml);
       state.timeTableData = flights;
     });
   },
