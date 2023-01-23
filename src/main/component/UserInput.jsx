@@ -15,8 +15,8 @@ function UserInput() {
   const dispatch = useDispatch();
 
   const handleSearchClick = () => {
-    const from = fromAirports[0].IATA_code;
-    const to = toAirports[0].IATA_code;
+    const from = fromAirports[0].iataCode;
+    const to = toAirports[0].iataCode;
     const date = '20230126';
     dispatch(retrieveTimeTable({ from, to, date }));
   };
@@ -31,9 +31,9 @@ function UserInput() {
             filterSelectedOptions
             limitTags={5}
             options={airports}
-            getOptionLabel={(option) => option.IATA_code}
+            getOptionLabel={(option) => option.iataCode}
             renderInput={(params) => <TextField {...params} />}
-            renderOption={(props, option) => (<Box {...props}>{option.airport_name}</Box>)}
+            renderOption={(props, option) => (<Box {...props}>{option.airportName}</Box>)}
             onChange={(_, value) => setFromAirports(value)}
           />
           <FormHelperText>From</FormHelperText>
@@ -47,9 +47,9 @@ function UserInput() {
             filterSelectedOptions
             limitTags={5}
             options={airports}
-            getOptionLabel={(option) => option.city_name}
+            getOptionLabel={(option) => option.iataCode}
             renderInput={(params) => <TextField {...params} />}
-            renderOption={(props, option) => (<Box {...props}>{option.airport_name}</Box>)}
+            renderOption={(props, option) => (<Box {...props}>{option.airportName}</Box>)}
             onChange={(_, value) => setToAirports(value)}
           />
           <FormHelperText>To</FormHelperText>
