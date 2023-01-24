@@ -28,13 +28,17 @@ const timeTableSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(retrieveTimeTable.pending, (state) => {
       state.timeTableLoaded = false;
+      state.timeTableError = null;
+      state.timeTableData = null;
     });
     builder.addCase(retrieveTimeTable.rejected, (state) => {
       state.timeTableLoaded = true;
-      state.timeTableError = 'Error retreiving timeTable details';
+      state.timeTableData = null;
+      state.timeTableError = 'Error retreiving Time Table details';
     });
     builder.addCase(retrieveTimeTable.fulfilled, (state, data) => {
       state.timeTableLoaded = true;
+      state.timeTableError = null;
       const xml = data.payload;
       const flights = evaluateFlightDetails(xml);
       state.timeTableData = flights;
