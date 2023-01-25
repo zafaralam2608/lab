@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  Autocomplete, Box, Button, FormControl, FormHelperText, Grid, TextField,
+  Autocomplete, Box, Button, FormControl, FormHelperText, Grid, Stack, TextField, Typography,
 } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import { retrieveTimeTable } from '../slice/timeTableSlice';
@@ -31,9 +31,16 @@ function UserInput() {
             filterSelectedOptions
             limitTags={5}
             options={airports}
-            getOptionLabel={(option) => option.iataCode}
+            getOptionLabel={(option) => option.city}
             renderInput={(params) => <TextField {...params} />}
-            renderOption={(props, option) => (<Box {...props}>{option.airportName}</Box>)}
+            renderOption={(props, option) => (
+              <Box {...props}>
+                <Stack>
+                  <Typography>{`${option.city},${option.state}`}</Typography>
+                  <Typography>{`${option.airportName} (${option.iataCode})`}</Typography>
+                </Stack>
+              </Box>
+            )}
             onChange={(_, value) => setFromAirports(value)}
           />
           <FormHelperText>From</FormHelperText>
@@ -47,9 +54,16 @@ function UserInput() {
             filterSelectedOptions
             limitTags={5}
             options={airports}
-            getOptionLabel={(option) => option.iataCode}
+            getOptionLabel={(option) => option.city}
             renderInput={(params) => <TextField {...params} />}
-            renderOption={(props, option) => (<Box {...props}>{option.airportName}</Box>)}
+            renderOption={(props, option) => (
+              <Box {...props}>
+                <Stack>
+                  <Typography>{`${option.city},${option.state}`}</Typography>
+                  <Typography>{`${option.airportName} (${option.iataCode})`}</Typography>
+                </Stack>
+              </Box>
+            )}
             onChange={(_, value) => setToAirports(value)}
           />
           <FormHelperText>To</FormHelperText>

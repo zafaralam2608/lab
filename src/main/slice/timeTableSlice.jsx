@@ -1,10 +1,7 @@
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { evaluateFlightDetails } from '../constant/util';
-
-const ROOT_URL = 'https://timetable-lookup.p.rapidapi.com';
-
-const HEADERS = { 'X-RapidAPI-Key': 'c8eba806cdmsh11f91fc417ce101p11e74fjsn2781d4639dfb' };
+import { HEADERS, ROOT_URL } from '../constant/api';
 
 export const retrieveTimeTable = createAsyncThunk('timeTable/retrieve', async ({ from, to, date }, thunkApi) => {
   try {
