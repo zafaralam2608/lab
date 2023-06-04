@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
 import { selectTimeTable } from '../slice/timeTableSlice';
+import { decodeDuration, decodeTS } from '../constant/util';
 
 function Results() {
   const { timeTable } = useSelector(selectTimeTable);
@@ -22,6 +23,7 @@ function Results() {
               <TableCell>Sort by :</TableCell>
               <TableCell>Departure</TableCell>
               <TableCell>Duration</TableCell>
+              <TableCell>Air time</TableCell>
               <TableCell>Arrival</TableCell>
             </TableRow>
           </TableHead>
@@ -34,9 +36,16 @@ function Results() {
                 <TableCell component="th" scope="row">
                   {flight.name}
                 </TableCell>
-                <TableCell>{flight.codeDep}</TableCell>
-                <TableCell>{flight.timeTrip}</TableCell>
-                <TableCell>{flight.codeArr}</TableCell>
+                <TableCell>
+                  <Typography>{decodeTS(flight.tsDep)}</Typography>
+                  <Typography>{flight.codeDep}</Typography>
+                </TableCell>
+                <TableCell>{decodeDuration(flight.timeTrip)}</TableCell>
+                <TableCell>{decodeDuration(flight.timeFlight)}</TableCell>
+                <TableCell>
+                  <Typography>{decodeTS(flight.tsArr)}</Typography>
+                  <Typography>{flight.codeArr}</Typography>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

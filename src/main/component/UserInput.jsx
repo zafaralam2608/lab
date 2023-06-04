@@ -17,7 +17,7 @@ function UserInput() {
   const handleSearchClick = () => {
     const from = fromAirports[0].iataCode;
     const to = toAirports[0].iataCode;
-    const date = '20230126';
+    const date = '20230626';
     dispatch(retrieveTimeTable({ from, to, date }));
   };
 

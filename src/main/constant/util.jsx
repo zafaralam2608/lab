@@ -1,5 +1,16 @@
 import XMLParser from 'react-xml-parser';
 
+export function decodeTS(ts) {
+  const date = new Date(ts);
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  return `${hour}:${minute}`;
+}
+
+export function decodeDuration(duration) {
+  return duration.substring(2).replace('H', ' h ').replace('M', ' m');
+}
+
 export function evaluateFlightDetails(xml) {
   const json = new XMLParser().parseFromString(xml);
   let count = 0;
@@ -58,5 +69,3 @@ export function evaluateFlightDetails(xml) {
   }
   return { count, route, flights };
 }
-
-export const TODO = 'TODO';
