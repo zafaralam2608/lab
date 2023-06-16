@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
+  Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
 import { selectTimeTable } from '../slice/timeTableSlice';
-import { decodeDuration, decodeTS } from '../constant/util';
+import { decodeTS } from '../constant/util';
+import Row from './Row';
 
 function Results() {
   const { timeTable } = useSelector(selectTimeTable);
@@ -20,33 +21,16 @@ function Results() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Sort by :</TableCell>
+              <TableCell>Airline</TableCell>
               <TableCell>Departure</TableCell>
               <TableCell>Duration</TableCell>
-              <TableCell>Air time</TableCell>
               <TableCell>Arrival</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
             {timeTableData.flights.map((flight) => (
-              <TableRow
-                key={flight.name}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {flight.name}
-                </TableCell>
-                <TableCell>
-                  <Typography>{decodeTS(flight.tsDep)}</Typography>
-                  <Typography>{flight.codeDep}</Typography>
-                </TableCell>
-                <TableCell>{decodeDuration(flight.timeTrip)}</TableCell>
-                <TableCell>{decodeDuration(flight.timeFlight)}</TableCell>
-                <TableCell>
-                  <Typography>{decodeTS(flight.tsArr)}</Typography>
-                  <Typography>{flight.codeArr}</Typography>
-                </TableCell>
-              </TableRow>
+              <Row key={`${flight.legs[0].airline}-${decodeTS(flight.tsDep)}-${decodeTS(flight.tsArr)}`} flight={flight} />
             ))}
           </TableBody>
         </Table>

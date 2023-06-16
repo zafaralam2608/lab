@@ -1,10 +1,8 @@
+import moment from 'moment/moment';
 import XMLParser from 'react-xml-parser';
 
 export function decodeTS(ts) {
-  const date = new Date(ts);
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  return `${hour}:${minute}`;
+  return moment(ts, 'YYYY-MM-DDThh:mm:ss').format('HH:mm');
 }
 
 export function decodeDuration(duration) {
