@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  Collapse,
-  IconButton, TableCell, TableRow, Typography,
+  Collapse, Grid, IconButton, TableCell, TableRow, Typography,
 } from '@mui/material';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
+import { AccessTime, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import { decodeDuration, decodeTS } from '../constant/util';
 
 function Row({ flight }) {
@@ -18,7 +17,6 @@ function Row({ flight }) {
         key={flight.name}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
       >
-
         <TableCell component="th" scope="row">
           {flight.legs[0].airline}
         </TableCell>
@@ -47,7 +45,23 @@ function Row({ flight }) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
           <Collapse in={open}>
-            <Typography>Sample</Typography>
+            {flight.legs.map((leg) => (
+              <Grid container justifyContent="space-evenly">
+                <Grid>
+                  <Typography variant="h6">{`${leg.airline} ${leg.flightNum}`}</Typography>
+                </Grid>
+                <Grid>
+                  <Typography variant="h6">{`${leg.airportDep} ${decodeTS(leg.tsDep)}`}</Typography>
+                </Grid>
+                <Grid>
+                  <AccessTime />
+                  <Typography>{decodeDuration(leg.duration)}</Typography>
+                </Grid>
+                <Grid>
+                  <Typography variant="h6">{`${leg.airportArr} ${decodeTS(leg.tsArr)}`}</Typography>
+                </Grid>
+              </Grid>
+            ))}
           </Collapse>
         </TableCell>
       </TableRow>

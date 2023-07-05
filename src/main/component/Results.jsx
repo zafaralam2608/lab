@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Alert,
+  Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
 import { selectTimeTable } from '../slice/timeTableSlice';
 import { decodeTS } from '../constant/util';
@@ -9,10 +10,18 @@ import Row from './Row';
 
 function Results() {
   const { timeTable } = useSelector(selectTimeTable);
-  const { timeTableLoaded, timeTableData } = timeTable;
+  const { timeTableLoaded, timeTableData, timeTableError } = timeTable;
 
   if (!timeTableLoaded) {
     return (<div>Loading...</div>);
+  }
+
+  if (timeTableError) {
+    return (
+      <Stack sx={{ width: '100%' }} spacing={2}>
+        <Alert severity="error">{timeTableError}</Alert>
+      </Stack>
+    );
   }
 
   return (
