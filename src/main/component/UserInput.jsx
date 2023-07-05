@@ -5,19 +5,23 @@ import {
   Autocomplete, Box, Button, FormControl, FormHelperText, Grid, Stack, TextField, Typography,
 } from '@mui/material';
 import { Search } from '@mui/icons-material';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { retrieveTimeTable } from '../slice/timeTableSlice';
 import { airports } from '../constant/data';
+import { formatDate } from '../constant/util';
 
 function UserInput() {
   const [fromAirports, setFromAirports] = useState('');
   const [toAirports, setToAirports] = useState('');
+  const [fromDate, setFromDate] = useState('');
 
   const dispatch = useDispatch();
 
   const handleSearchClick = () => {
     const from = fromAirports[0].iataCode;
     const to = toAirports[0].iataCode;
-    const date = '20230726';
+    const date = formatDate(fromDate);
     dispatch(retrieveTimeTable({ from, to, date }));
   };
 
@@ -68,6 +72,16 @@ function UserInput() {
           />
           <FormHelperText>To</FormHelperText>
         </FormControl>
+      </Grid>
+      <Grid>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            disablePast
+            format="DD/MM/YYYY"
+            value={fromDate}
+            onChange={(value) => setFromDate(value)}
+          />
+        </LocalizationProvider>
       </Grid>
       <Grid>
         <Button

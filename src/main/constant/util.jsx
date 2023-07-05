@@ -1,5 +1,10 @@
+import dayjs from 'dayjs';
 import moment from 'moment/moment';
 import XMLParser from 'react-xml-parser';
+
+export function formatDate(date) {
+  return dayjs(date).format('YYYYMMDD');
+}
 
 export function decodeTS(ts) {
   return moment(ts, 'YYYY-MM-DDThh:mm:ss').format('HH:mm');

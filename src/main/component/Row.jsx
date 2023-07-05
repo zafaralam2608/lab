@@ -46,7 +46,7 @@ function Row({ flight }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
           <Collapse in={open}>
             {flight.legs.map((leg) => (
-              <Grid container justifyContent="space-evenly">
+              <Grid key={leg.seq} container justifyContent="space-evenly">
                 <Grid>
                   <Typography variant="h6">{`${leg.airline} ${leg.flightNum}`}</Typography>
                 </Grid>

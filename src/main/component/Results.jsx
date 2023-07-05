@@ -2,10 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   Alert,
-  Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography,
 } from '@mui/material';
 import { selectTimeTable } from '../slice/timeTableSlice';
-import { decodeTS } from '../constant/util';
 import Row from './Row';
 
 function Results() {
@@ -37,11 +36,21 @@ function Results() {
               <TableCell />
             </TableRow>
           </TableHead>
-          <TableBody>
-            {timeTableData.flights.map((flight) => (
-              <Row key={`${flight.legs[0].airline}-${decodeTS(flight.tsDep)}-${decodeTS(flight.tsArr)}`} flight={flight} />
-            ))}
-          </TableBody>
+          {timeTableData.flights.length > 0
+            ? (
+              <TableBody>
+                {timeTableData.flights.map((flight) => (
+                  <Row key={flight.legs.map((leg) => leg.flightNum).join('-')} flight={flight} />
+                ))}
+              </TableBody>
+            )
+            : (
+              <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0, textAlign: 'center' }} colSpan={5}>
+                  <Typography>No flights found</Typography>
+                </TableCell>
+              </TableRow>
+            )}
         </Table>
       </TableContainer>
     </Grid>
